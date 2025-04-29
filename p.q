@@ -6,10 +6,12 @@ o:first string .z.o;
 $[o="w";if[3.6>.z.K;'`$"kdb+ version must be 3.6+"];if[3.5>.z.K;'`$"kdb+ version must be 3.5+"]];
 if[not .P.loaded:-1h=type@[`.p@;`numpy;`];
  sc:{"'",x,"'.join([__import__('sysconfig').get_config_var(v)for v in",ssr[.j.j y;"\"";"'"],"])"};pr:{"print(",x,");"};
- c:"-c \"",pr["'.'.join([str(getattr(__import__('sys').version_info,x))for x in ['major','minor']])"],"\"2>",$[o="w";"nul <nul";"/dev/null"];
- if[(o="w")and any 3 6>"J"$"." vs first@[system"python3 ",;c;{system"python ",c}];'"embedPy requires python 3.6 or higher on windows"];
- c:"-c \"",pr[$[o="w";sc["/python";`BINDIR`VERSION];sc["/libpython";`LIBDIR`LDVERSION]],"+'",$[o="w";".dll";o="l";".so";".dylib"],"'"],pr["__import__('sys').base_prefix"],pr["__import__('sys').prefix"],pr["__import__('sys').executable"],"\"2>",$[o="w";"nul <nul";"/dev/null"];
- `L`H`P`B set'@[system"python3 ",;c;{system"python ",c}];
+ c:"\"",pr["'.'.join([str(getattr(__import__('sys').version_info,x))for x in ['major','minor']])"],"\"2>",$[o="w";"nul <nul";"/dev/null"];
+ pyc:$[""~py:getenv`EMBEDPY_EXECUTABLE;{@[system"python3 -c",;x;{system"python -c",x}]};{system x," -c",y}[py]];
+ if[(o="w")and any 3 6>"J"$"." vs first pyc c;'"embedPy requires python 3.6 or higher on windows"];
+ c:"\"",pr[$[o="w";sc["/python";`BINDIR`VERSION];sc["/libpython";`LIBDIR`LDVERSION]],"+'",$[o="w";".dll";o="l";".so";".dylib"],"'"],pr["__import__('sys').base_prefix"],pr["__import__('sys').prefix"],pr["__import__('sys').executable"],"\"2>",$[o="w";"nul <nul";"/dev/null"];
+ `L`H`P`B set'pyc c;
+ if[not ""~lp:getenv`EMBEDPY_PYTHON_LIB_PATH;L:lp];
  .P.env:not H~P;
  .p:(`:./p 2:(`init;3))[L;H;B]]
 loaded:.P.loaded
