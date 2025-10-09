@@ -153,6 +153,20 @@ q)
 
 See [docker/README.md](docker/README.md) for more details.
 
+## Configuration
+
+- `EMBEDPY_EXECUTABLE` export this environment variable to define the Python executable for embedPy to use.
+  - If not set, embedPy attempts to use `python3` and then `python` from `PATH`.
+- `EMBEDPY_PYTHON_LIB_PATH` export this environment variable to define the `libpython.so` for embedPy to use.
+  - Used in cases of `'libpython` error on load of EmbedPy when filepath is incorrect. See also [FAQ](./docs/faq.md#installing-embedpy-on-system-with-python-installed-from-source).
+
+Example:
+
+```bash
+$export EMBEDPY_EXECUTABLE="/usr/bin/python"
+$export EMBEDPY_PYTHON_LIB_PATH="/usr/lib/x86_64-linux-gnu/libpython3.10.so"
+$q p.q
+```
 
 ## Back-incompatible changes
 
